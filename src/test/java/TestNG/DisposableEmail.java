@@ -1,3 +1,5 @@
+package TestNG;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -52,7 +54,7 @@ public class DisposableEmail {
      * Đăng ký tài khoản và xác minh địa chỉ email
      */
     @Test(priority = 1)
-    public void registerAccount(){
+    public void registerAccount() throws InterruptedException {
         //Truy cập vào website demo
         driver.get("https://playground.mailslurp.com/");
 
@@ -95,11 +97,13 @@ public class DisposableEmail {
 
         //Gán giá trị số có 6 chữ số (confirmation code) cho biến confirmationCode
         confirmationCode =emailContent.substring(matcher.start(), matcher.end());
+        System.out.println(confirmationCode);
 
         //Switch về lại tab playground.mailslurp.com (index = 0)
         driver.switchTo().window(tabs.get(0));
 
         //Điền confirmation code
+        Thread.sleep(1000);
         driver.findElement(By.xpath("//input[@name='code']")).sendKeys(confirmationCode);
 
         //Click to Confirm button
